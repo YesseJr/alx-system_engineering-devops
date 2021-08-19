@@ -1,2 +1,2 @@
 #!/bin/bash
-su -c '/home/betty/betty-script.sh' betty
+su betty
