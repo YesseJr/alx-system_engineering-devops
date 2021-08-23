@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -latr | tail -10
+ls -1lrt | tail -10
