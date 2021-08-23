@@ -1,2 +1,2 @@
 #!/in/bash
-ls -laC
+ls -alR
