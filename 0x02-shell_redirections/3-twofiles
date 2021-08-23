@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo cat | cat /etc/shadow /cat/passwd
