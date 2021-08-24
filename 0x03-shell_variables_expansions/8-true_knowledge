@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $((128variable))
+echo $((128+variable)
