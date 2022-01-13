@@ -3,7 +3,7 @@
 # Author: Waython Yesse
 
 i=10
-until (( i == 10 ))
+until (( i == 10 ));
 do
 echo "Best School";
 (( i++ ));
