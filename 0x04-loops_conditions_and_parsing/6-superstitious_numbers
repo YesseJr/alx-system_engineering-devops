@@ -6,7 +6,7 @@
 # Author: Waython Yesse
 
 i = 0
-while [ i lt 20]
+while [ i -lt 20]
 do
 echo "$i"
 case $i in
