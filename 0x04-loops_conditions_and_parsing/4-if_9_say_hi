@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# This script will display "The Best School" 10 times.
+# But for the 9th iteration, it will display Best School and then Hi on a new line.
+# Using while loop and if statement
+# Author: Waython Yesse
+
+i = 0
+while [$i lt 10]
+do
+echo "Best School"
+if [$i eq 9]
+then
+echo "Hi"
+fi
+((i++))
+done
