@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# This script will display "The Best School" 10 times: by using for loop
-# Author: Waython Yesse
 
 for _ in {1..10}
 do
