@@ -3,8 +3,8 @@
 # Author: Waython Yesse
 
 i=10
-until (( i == 10 ))
+until [ $i -eq 10 ]
 do
-echo "Best School";
-(( i++ ));
+    echo "Best School";
+    (( i++ ));
 done
