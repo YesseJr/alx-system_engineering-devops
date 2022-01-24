@@ -4,16 +4,16 @@
 # - display minutes from 1 to 59
 # Author: Waython Yesse
 
-hour = 0
-while [hour -lt 12]
+hour=0
+while [ "$hour" -le 12 ]
 do
 echo "Hour: $hour"
 ((hour++))
 
-minute = 0
-while [minute -lt 59]
+minute=1
+while [ "$minute" -le 59 ]
 do
 echo "Minute: $minute"
-((minute++))
+(( minute++ ))
 done
 done
