@@ -1,0 +1,15 @@
+#!/usr/bin/usr bash
+# This script will give you information about the school file, trust me...
+# Author: Waython Yesse
+
+myfile = "school"
+
+if [ -e "$myfile" ]
+then
+echo "$myfile file exists"
+
+  if [ -s "$myfile" ]
+  then
+  echo "$myfile file is not empty"
+  else
+  echo ""

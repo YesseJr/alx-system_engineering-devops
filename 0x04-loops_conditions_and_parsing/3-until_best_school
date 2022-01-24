@@ -2,7 +2,7 @@
 # This script will display "The Best School" 10 times: by using while loop
 # Author: Waython Yesse
 
-i=10
+i=0
 until [ $i -eq 10 ]
 do
     echo "Best School";
