@@ -1,6 +1,5 @@
 #!/usr/bin/usr bash
-# This script will give you information about the school file, trust me...
-# Author: Waython Yesse
+# Displays information about the file "School"
 
 myfile="school"
 
