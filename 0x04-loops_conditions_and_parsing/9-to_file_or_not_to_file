@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
 # Script gives info on file "School" (exist? empty? file and not directory?)
-if [ -e "School" ]
-then
+
+if [ -e "School" ]; then
   echo "School file exists"
-  if [ -s "School" ]
-  then
+  if [ -s "School" ]; then
     echo "School file is not empty"
   else
     echo "School file is empty"
   fi
 
-  if [ -f "School" ]
-  then
+  if [ -f "School" ]; then
     echo "School is a regular file"
   fi
 else
