@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-# display all processes (a): user-oriented (u), w/wo TTY (x), show heirachy (f)
-
-ps -auxf
+# This script displays all processes, for all users, including those without
+# TTY. Display info in user-oriented format while also showing process
+# hierarchy.
+ps -uaxf
