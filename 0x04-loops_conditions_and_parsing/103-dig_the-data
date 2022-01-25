@@ -3,5 +3,4 @@
 # calculate and put num occurences up front; order from greatest to least
 # Author: Waython Yesse
 
-my_file="apache-access.log"
-awk '{print $1 " " $9}' $my_file | sort | uniq -c | sort -rn
+awk '{print $1 " " $9}' apache-access.log | sort | uniq -c | sort -nr
