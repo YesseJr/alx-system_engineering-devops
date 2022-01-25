@@ -7,12 +7,13 @@
 # - Deletes the file /var/run/myscript.pid and terminates itself when receiving a SIGQUIT or SIGTERM signal
 # Author: waython Yesse
 
-Waython() {
-  rm /var/run/holbertonscript.pid
-  exit
+Waython()
+{
+    rm -f /var/run/holbertonscript.pid;
+    exit
 }
 
-echo "$$" > /var/run/holbertonscript.pid
+echo "$$" >> /var/run/holbertonscript.pid
 
 while true
 do
@@ -20,5 +21,5 @@ do
   sleep 2
   trap 'echo "Y U no love me?!"' SIGINT
   trap 'echo "I hate the kill command" && Waython' SIGTERM
-  trap 'terminator' SIGQUIT
+  trap 'Waython' SIGQUIT
 done
