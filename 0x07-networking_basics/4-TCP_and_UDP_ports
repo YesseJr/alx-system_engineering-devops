@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Bash script displays listenting pots that only shows listening sockets and shows the PID and name of the program to which each socket belongs.
+# Author: Waython Yesse
+
+sudo netstat -pl
