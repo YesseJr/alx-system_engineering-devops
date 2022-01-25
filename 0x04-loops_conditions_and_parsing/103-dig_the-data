@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # parse log for IP and HTTP
 # calculate and put num occurences up front; order from greatest to least
-# Author: Waython Yesse
 
-awk '{print $1 " " $9}' apache-access.log | sort | uniq -c | sort -nr
+file="apache-access.log"
+awk '{print $1, $9}' $file | sort | uniq -c | sort -nr
