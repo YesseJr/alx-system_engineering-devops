@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
-# This script displays all processes, for all users, including those without
-# TTY. Display info in user-oriented format while also showing process
-# hierarchy.
-ps -uaxf
+#list pid with format
+ps auxf
