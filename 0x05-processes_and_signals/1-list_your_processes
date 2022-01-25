@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# A bash script that displays a list of currently running processes
-# Author: Waython Yesse
+# display all processes (a): user-oriented (u), w/wo TTY (x), show heirachy (f)
 
 ps -auxf
