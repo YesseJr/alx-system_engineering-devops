@@ -1,0 +1,6 @@
+Host *
+     HostName 18.205.38.20
+     User root
+     IdentityFile ~/.ssh/school
+     PasswordAuthentication no
+     PubkeyAuthentication yes
