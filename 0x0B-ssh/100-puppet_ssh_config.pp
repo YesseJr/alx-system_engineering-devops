@@ -1,11 +1,13 @@
-# Create the ~/.ssh/config with puppet
-file {'~/.ssh/config':
-  ensure  => present,
-  replace => 'yes',
-  path    => '~/.ssh/config',
-  content => 'Host *
-     HostName 35.196.9.108
-     User root
-     IdentityFile ~/.ssh/holberton',
-  mode    => '7000',
+# Client configuration
+exec { 'Turn off passwd auth':
+  command => 'bash -c "echo PasswordAuthentication no >> /etc/ssh/ssh_config"',
+  path    => '/usr/bin:/usr/sbin:/bin'
+}
+exec { 'Declare identity file':
+  command => 'bash -c "echo IdentityFile \'~/.ssh/school\' >> /etc/ssh/ssh_config"',
+  path    => '/usr/bin:/usr/sbin:/bin'
+}
+exec { 'Turn on pubkey auth':
+  command => 'bash -c "echo PubkeyAuthentication yes >> /etc/ssh/ssh_config"',
+  path    => '/usr/bin:/usr/sbin:/bin'
 }
