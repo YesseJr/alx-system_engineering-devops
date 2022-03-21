@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
-# Configure server with: HAproxy version 1.5 or greater
-# Distributes request using roundrobin; sends traffic to servers: web-01 and web-02
+# Configure a load balancer
+sudo hostnamectl set-hostname "$(sed -n '/127.0.0.1/p' /etc/hosts | cut -d' ' -f3)"
 
-CFG="\\\nlisten appname 0.0.0.0:80\n\tmode http\n\tbalance roundrobin\n\toption httpclose\n\toption forwardfor\n\tserver 338-web-01 35.229.54.225 check\n\tserver 338-web-02 35.231.225.251 check\n"
-
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository -y ppa:vbernat/haproxy-1.8
 sudo apt-get update
-sudo apt-get -y install nginx
-sudo apt-get install -y haproxy=1.5\*
+sudo apt-get install -y haproxy=1.8.\*
+CONFIG="
+frontend http
+  bind *:80
+  mode http
+  default_backend web-backend
+backend web-backend
+  balance roundrobin
+  server 541-web-01 35.196.185.161:80 check
+  server 541-web-02 104.196.150.129:80 check
+"
+echo "$CONFIG" | sudo tee -a /etc/haproxy/haproxy.cfg > /dev/null
 
-# Make sure HAproxy can be managed via an init script
-sudo sed -i "s/ENABLED=0/ENABLED=1/" /etc/default/haproxy
-
-# Backup original config file before attempt modifications
-sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.backup
-
-# Configure to include roundrobin and two servers
-sudo sed -i "\$a $CFG" /etc/haproxy/haproxy.cfg
-
-sudo service haproxy start
+sudo service haproxy restart
