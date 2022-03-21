@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# A bash script to displays its own PID.
+# Author: Waython Yesse
+
+echo $$

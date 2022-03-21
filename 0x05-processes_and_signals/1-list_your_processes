@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# list pid with format
+# Author: Waython Yesse
+
+ps auxf

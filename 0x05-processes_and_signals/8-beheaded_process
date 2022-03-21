@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# We are going to kill the process 7-highlander.
+# Author: Waython Yesse
+
+pkill -f -SIGKILL 7-highlander
