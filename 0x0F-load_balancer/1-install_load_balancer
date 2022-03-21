@@ -3,40 +3,17 @@
 #+    Enables management via the init script.
 #+    Distributes requests using a round-robin algorithm.
 
-apt-get install -y software-properties-common
-add-apt-repository -y ppa:vbernat/haproxy-1.8
-apt-get update
-apt-get install -y haproxy=1.8.\*
-
-echo "ENABLED=1" >> /etc/default/haproxy
-mv /etc/haproxy/haproxy.cfg{,.original}
-touch /etc/haproxy/haproxy.cfg
-
-printf %s "global
-    log 127.0.0.1 local0 notice
-    maxconn 2000
-    user haproxy
-    group haproxy
-defaults
-    log     global
-    mode    http
-    option  httplog
-    option  dontlognull
-    retries 3
-    option redispatch
-    timeout connect  5000
-    timeout client  10000
-    timeout server  10000
-listen hbnb
-    bind 0.0.0.0:80
-    mode http
-    stats enable
-    stats uri /haproxy?stats
-    balance roundrobin
-    option httpclose
-    option forwardfor
-    server 2058-web-01 18.205.38.20 check
-    server 2058-web-02 18.232.184.211 check
-" >> /etc/haproxy/haproxy.cfg
-
-service haproxy start
+sudo apt-get -y install software-properties-common
+sudo add-apt-repository ppa:vbernat/haproxy-1.8
+#update all packages on a machine & install haproxy
+sudo apt-get update
+sudo apt-get -y install haproxy=1.8.\*
+#Adding info to the configuration file
+CFG=/etc/haproxy/haproxy.cfg
+echo listen "2058-lb-01" | sudo tee -a $CFG
+echo "bind 0:80" | sudo tee -a $CFG
+echo "mode http" | sudo tee -a $CFG
+echo "balance roundrobin" | sudo tee -a $CFG
+echo "server 2058-web-01 18.205.38.20 check port 80" | sudo tee -a $CFG
+echo "server 2058-web-02 18.232.184.211 check port 80" | sudo tee -a $CFG
+sudo service haproxy start
