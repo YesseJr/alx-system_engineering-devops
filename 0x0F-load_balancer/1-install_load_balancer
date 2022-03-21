@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
-# Installs HAProxy version 1.8 with the following configurations:
-#+    Enables management via the init script.
-#+    Distributes requests using a round-robin algorithm.
+# Installs and setup haproxy
 
-sudo apt-get -y install software-properties-common
-sudo add-apt-repository ppa:vbernat/haproxy-1.8
-#update all packages on a machine & install haproxy
-sudo apt-get update
-sudo apt-get -y install haproxy=1.8.\*
-#Adding info to the configuration file
-CFG=/etc/haproxy/haproxy.cfg
-echo listen "2058-lb-01" | sudo tee -a $CFG
-echo "bind 0:80" | sudo tee -a $CFG
-echo "mode http" | sudo tee -a $CFG
-echo "balance roundrobin" | sudo tee -a $CFG
-echo "server 2058-web-01 18.205.38.20 check port 80" | sudo tee -a $CFG
-echo "server 2058-web-02 18.232.184.211 check port 80" | sudo tee -a $CFG
-sudo service haproxy start
+apt-get install -y software-properties-common
+add-apt-repository -y ppa:vbernat/haproxy-1.8
+apt-get -y update
+apt-get install -y haproxy=1.8.\*
+
+echo "ENABLED=1" > /etc/default/haproxy
+
+# Listen to web1 and web2 servers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+echo "
+   listen load_balancer
+   bind *:80
+   mode http
+   balance roundrobin
+   option httpclose
+   option forwardfor
+   server 2058-web-01 18.205.38.20 check
+   server 2058-web-02 18.232.184.211 check
+" >> /etc/haproxy/haproxy.cfg
