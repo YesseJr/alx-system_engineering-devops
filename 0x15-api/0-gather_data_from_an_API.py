@@ -1,21 +1,33 @@
 #!/usr/bin/python3
-"""getting data from an api
-"""
-
+"""Get data from api"""
+import json
 import requests
 from sys import argv
 
-if __name__ == '__main__':
-    endpoint = "https://jsonplaceholder.typicode.com"
-    userId = argv[1]
-    user = requests.get(endpoint + "users/{}".
-                        format(userId), verify=False).json()
-    todo = requests.get(endpoint + "todos?userId={}".
-                        format(userId), verify=False).json()
-    completed_tasks = []
-    for task in todo:
-        if task.get('completed') is True:
-            completed_tasks.append(task.get('title'))
+
+if __name__ == "__main__":
+
+    users = requests.get(
+        "https://jsonplaceholder.typicode.com/users?id=" + argv[1])
+    todos = requests.get(
+        "https://jsonplaceholder.typicode.com/todos?userId=" + argv[1])
+
+    users_json = users.json()
+    todos_json = todos.json()
+    done_tasks = 0
+    total_tasks = 0
+    task_list = []
+
+    for data in todos_json:
+        if data['completed'] is True:
+            done_tasks += 1
+            task_list.append(data['title'])
+        total_tasks += 1
+
+    employee_name = users_json[0]['name']
+
     print("Employee {} is done with tasks({}/{}):".
-          format(user.get('name'), len(completed_tasks), len(todo)))
-    print("\n".join("\t {}".format(task) for task in completed_tasks))
+          format(employee_name, done_tasks, total_tasks))
+
+    for task in task_list:
+        print('\t ' + task)
