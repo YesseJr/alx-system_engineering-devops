@@ -1,24 +1,31 @@
 #!/usr/bin/python3
-"""Get info form Api and Save CSV"""
+"""
+    Takes an argument passed to the script to be used in an API query.
+    Retrieved data is then parsed to be dumped in a CSV file.
+"""
 import csv
+import json
 import requests
-from sys import argv
+import sys
 
 
 if __name__ == "__main__":
-
-    users = requests.get(
-        "https://jsonplaceholder.typicode.com/users?id=" + argv[1])
-    todos = requests.get(
-        "https://jsonplaceholder.typicode.com/todos?userId=" + argv[1])
-
-    users_json = users.json()
-    todos_json = todos.json()
-    task_list = []
-    employee_name = users_json[0]['username']
-
-    with open(str(argv[1])+'.csv', 'w') as f:
-        write = csv.writer(f, quoting=csv.QUOTE_ALL)
-        for data in todos_json:
-            write.writerow([str(argv[1]), str(employee_name),
-                            data['completed'], data['title']])
+    if len(sys.argv) == 2:
+        user_d = {}
+        todo_l = []
+        url = 'https://jsonplaceholder.typicode.com/'
+        user_resp = requests.get(url + 'users/{}'.format(sys.argv[1]))
+        todo_resp = requests.get(url + 'todos?userId={}'.format(sys.argv[1]))
+        if all([user_resp, todo_resp]) is not None:
+            try:
+                user_d = json.loads(user_resp.text)
+                todo_l = json.loads(todo_resp.text)
+            except JSONDecodeError:
+                pass
+            if type(todo_l) is list and type(user_d) is dict and user_d != {}:
+                with open(sys.argv[1] + '.csv', 'w', newline='') as csvfile:
+                    write_file = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+                    for todo in todo_l:
+                        line = [user_d.get('id'), user_d.get('username'),
+                                todo.get('completed'), todo.get('title')]
+                        write_file.writerow(line)
