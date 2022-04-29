@@ -1,4 +1,4 @@
-# Fixes the 500 error.
+# Fixes the 500 error at wordpress site.
 exec { '/bin/bash':
   command => 'sudo mv /var/www/html/wp-includes/class-wp-locale.php /var/www/html/wp-includes/class-wp-locale.phpp',
   creates => '/var/www/html/wp-includes/class-wp-locale.phpp',
