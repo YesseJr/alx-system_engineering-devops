@@ -1,25 +1,29 @@
 #!/usr/bin/python3
-"""
-Query Reddit API for titles of top ten posts of a given subreddit
-"""
+"""Request"""
 import requests
 
 
 def top_ten(subreddit):
-    """
-        return top ten titles for a given subreddit
-        return None if invalid subreddit given
-    """
-    # get user agent
-    # https://stackoverflow.com/questions/10606133/ -->
-    # sending-user-agent-using-requests-library-in-python
-    headers = requests.utils.default_headers()
-    headers.update({'User-Agent': 'My User Agent 1.0'})
+    """Request posts"""
+    url = 'https://api.reddit.com/r/{}/hot.json'.format(subreddit)
+    header = {'User-agent': 'your bot 0.1'}
+    subred = requests.get(url, headers=header, allow_redirects=False)
 
-    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
-    r = requests.get(url, headers=headers).json()
-    top_ten = r.get('data', {}).get('children', [])
-    if not top_ten:
+    if subred.status_code != 200:
         print(None)
-    for t in top_ten:
-        print(t.get('data').get('title'))
+        return None
+
+    try:
+        theme = subred.json()
+    except:
+        print("Not a valid JSON")
+        return 0
+
+    try:
+        maindata = theme.get("data")
+        children = maindata.get("children")
+        for child in children[:10]:
+            data = child.get("data")
+            print(data.get("title"))
+    except:
+        return None
