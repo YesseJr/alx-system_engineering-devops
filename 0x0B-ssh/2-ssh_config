@@ -1,5 +1,5 @@
 Host *
-     HostName 18.205.38.20
+     HostName 44.197.198.2
      User root
      IdentityFile ~/.ssh/school
      PasswordAuthentication no
