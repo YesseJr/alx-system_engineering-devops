@@ -8,11 +8,11 @@
  * The root cause of this disaster was the accidental deletion of the website database's data by one of the newbie engineers while testing some new features on the hosted version on the cloud.
 
 ### THE TIMELINE.
- * 11:47AM EAT :- Website inaccessibility as loged in user issue was detected.
- * 11:49AM EAT :- Error logs were checked by the DevOps team.
- * 11:51AM EAT :- The DevOps team cleaned the browser's cache and reinstalled Ngix on the Website server.
- * 11:53AM EAT :- The DevOps team logged into MySQL to check the database and found all datas are gone.
- * 11:54AM EAT :- The DevOps team generated the file from the slave MySQL database that contains all the data that was on the master database, copying them then retarted the server.
+ * 11:47 AM EAT :- Website inaccessibility as loged in user issue was detected.
+ * 11:49 AM EAT :- Error logs were checked by the DevOps team.
+ * 11:51 AM EAT :- The DevOps team cleaned the browser's cache and reinstalled Ngix on the Website server.
+ * 11:53 AM EAT :- The DevOps team logged into MySQL to check the database and found all datas are gone.
+ * 11:54 AM EAT :- The DevOps team generated the file from the slave MySQL database that contains all the data that was on the master database, copying them then retarted the server.
  * 12:00PM EAT :- The Wbsite was eventually 100% restored and back online.
 
  ### ROOT CAUSE AND RESOLUTION.
