@@ -3,9 +3,10 @@
 Request from API; Return TODO list progress given employee ID
 Export this data to CSV
 """
+from sys import argv
 import csv
 import requests
-from sys import argv
+
 
 
 def to_csv():
