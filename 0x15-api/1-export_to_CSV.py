@@ -1,31 +1,18 @@
 #!/usr/bin/python3
-"""
-    Takes an argument passed to the script to be used in an API query.
-    Retrieved data is then parsed to be dumped in a CSV file.
-"""
+"""Exports to-do list information for a given employee ID to CSV format."""
 import csv
-import json
 import requests
 import sys
 
-
 if __name__ == "__main__":
-    if len(sys.argv) == 2:
-        user_d = {}
-        todo_l = []
-        url = 'https://jsonplaceholder.typicode.com/'
-        user_resp = requests.get(url + 'users/{}'.format(sys.argv[1]))
-        todo_resp = requests.get(url + 'todos?userId={}'.format(sys.argv[1]))
-        if all([user_resp, todo_resp]) is not None:
-            try:
-                user_d = json.loads(user_resp.text)
-                todo_l = json.loads(todo_resp.text)
-            except JSONDecodeError:
-                pass
-            if type(todo_l) is list and type(user_d) is dict and user_d != {}:
-                with open(sys.argv[1] + '.csv', 'w', newline='') as csvfile:
-                    write_file = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
-                    for todo in todo_l:
-                        line = [user_d.get('id'), user_d.get('username'),
-                                todo.get('completed'), todo.get('title')]
-                        write_file.writerow(line)
+    user_id = sys.argv[1]
+    url = "https://jsonplaceholder.typicode.com/"
+    user = requests.get(url + "users/{}".format(user_id)).json()
+    username = user.get("username")
+    todos = requests.get(url + "todos", params={"userId": user_id}).json()
+
+    with open("{}.csv".format(user_id), "w", newline="") as csvfile:
+        writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+        [writer.writerow(
+            [user_id, username, t.get("completed"), t.get("title")]
+         ) for t in todos]
