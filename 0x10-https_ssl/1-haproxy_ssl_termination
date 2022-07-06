@@ -60,8 +60,8 @@ frontend www-https
 backend www-backend
         balance roundrobin
         redirect scheme https if !{ ssl_fc }
-        server 2058-web-01 34.73.67.71 check
-        server 2058-web-02 34.75.104.222 check
+        server 2058-web-01 34.231.110.6 check
+        server 2058-web-02 3.237.39.54 check
 
 backend letsencrypt-backend
         server letsencrypt 127.0.0.1:54321
@@ -71,5 +71,5 @@ backend letsencrypt-backend
 #       balance roundrobin
 #       option httpclose
 #       option forwardfor
-#       server 2058-web-01 34.73.67.71 check
-#       server 2058-web-02 34.75.104.222 check
+#       server 2058-web-01 34.231.110.6 check
+#       server 2058-web-02 3.237.39.54 check
